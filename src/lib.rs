@@ -1,9 +1,7 @@
 #![recursion_limit = "512"]
 
 mod app;
-mod button1;
-mod button2;
-mod input;
+mod components;
 
 use wasm_bindgen::prelude::*;
 

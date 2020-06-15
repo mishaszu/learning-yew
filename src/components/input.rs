@@ -33,7 +33,7 @@ impl Component for Input {
 
     fn view(&self) -> Html {
         html! {
-            <input placeholder="text input" value=self.props.text oninput=&self.props.oninput />
+            <input class="input" placeholder="text input" value=self.props.text oninput=&self.props.oninput />
         }
     }
 }

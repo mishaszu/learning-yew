@@ -29,7 +29,7 @@ impl Component for Button1 {
 
     fn view(&self) -> Html {
         html! {
-            <button onclick=self.onclick()>{&self.props.value}</button>
+            <button class=vec!["button", "button1"] onclick=self.onclick()>{&self.props.value}</button>
         }
     }
 }

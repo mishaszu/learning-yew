@@ -1,4 +1,6 @@
-$background: #f5f5f5;
+@import '../src/app.scss';
+
+$background: white;
 
 body {
   background: $background;

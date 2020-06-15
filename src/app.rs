@@ -1,6 +1,7 @@
-use super::button1::Button1;
-use super::button2::Button2;
-use super::input::Input;
+use crate::components::{button1, button2, input};
+use button1::Button1;
+use button2::Button2;
+use input::Input;
 use log::*;
 use yew::prelude::*;
 
@@ -85,26 +86,37 @@ impl Component for App {
             });
 
         html! {
-            <>
+            <div class="main">
                 <h1>{ "Learing yew" }</h1>
                 <a href="https://yew.rs/docs/" target="blank">{"yew.rs"}</a>
                 <a href="https://docs.rs/yew/0.16.2/yew/" target="blank">{"Yew docs"}</a>
-                <div>
+                <div class="section">
                     <h2>{"Passing Callback as props"}</h2>
-                    <Button1 onclick=self.callback_click() value="Click from callback" />
-                    <Button2 onclick=self.event_click() value="Click from mouse event callback"/>
+                    <div class="action-wrapper">
+                        <Button1 onclick=self.callback_click() value="Click from callback" />
+                        <Button2 onclick=self.event_click() value="Click from mouse event callback"/>
+                    </div>
                 </div>
-                <div>
-                    <h2>{"Passing Callback directly to dom element"}</h2>
-                    <button onclick=self.simple_callback()>{ "Click from simple callback" }</button>
-                    // this one will dispatch 2 messages: MinusOne & Nope
-                    <button onclick=self.callback_to_reform().reform(|_| Msg::Nope)>{ "Test from reform click"}</button>
+                <div class="section">
+                    <div class="action-wrapper">
+                        <div class="small-margin">
+                            <h2>{"Passing Callback directly to dom element"}</h2>
+                            <button class="button" onclick=self.simple_callback()>{ "Click from simple callback" }</button>
+                        </div>
+                        <div class="small-margin">
+                            <h2>{"Passing Callback as props"}</h2>
+                            // this one will dispatch 2 messages: MinusOne & Nope
+                            <button class="button" onclick=self.callback_to_reform().reform(|_| Msg::Nope)>{ "Test from reform click"}</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
+                <div class="section">
                     <h2>{format!("Passing callback to input, here is result: {}", &self.text)}</h2>
-                    <Input oninput=self.oninput() text=&self.text />
+                    <div class="action-wrapper">
+                        <Input oninput=self.oninput() text=&self.text />
+                    </div>
                 </div>
-            </>
+            </div>
         }
     }
 }
