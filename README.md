@@ -12,17 +12,17 @@ This repo is field of my experiments with [yew.rs](https://yew.rs/docs/) framewo
 When building for the first time, ensure to install dependencies first.
 
 ```
-yarn install
+npm install
 ```
 
 ```
-yarn run build
+npm run build
 ```
 
 ### 🔬 Serve locally
 
 ```
-yarn run start:dev
+npm run start:dev
 ```
 
 
