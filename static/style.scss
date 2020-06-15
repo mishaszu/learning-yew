@@ -5,3 +5,8 @@ $background: white;
 body {
   background: $background;
 }
+
+html, body, div, main, header, footer, p, h1, h2, h3, h4 {
+  margin: 0px;
+  padding: 0px;
+}

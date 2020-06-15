@@ -2,6 +2,7 @@
 
 mod app;
 mod components;
+mod props;
 
 use wasm_bindgen::prelude::*;
 

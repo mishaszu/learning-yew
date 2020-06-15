@@ -1,0 +1,15 @@
+.learn-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  background-color: lightpink;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.card-custom-width {
+  min-width: 600px;
+  width: 60%;
+}

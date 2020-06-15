@@ -1,15 +1,14 @@
-pub mod button1;
-pub mod button2;
-pub mod input;
-
-use button1::Button1;
-use button2::Button2;
-use input::Input;
-
+use crate::components::{button1::Button1, button2::Button2, card::Card, input::Input};
 use log::*;
 use yew::prelude::*;
 
-pub struct LearnComponents {
+#[derive(Debug)]
+pub struct Test {
+    pub value1: i32,
+    pub value2: i32,
+}
+
+pub struct App {
     link: ComponentLink<Self>,
     value: i32,
     text: String,
@@ -19,15 +18,16 @@ pub enum Msg {
     AddOne,
     MinusOne,
     CustomValue(String),
+    StructValue(Test),
     TextChange(String),
     Nope,
 }
 
-impl Component for LearnComponents {
+impl Component for App {
     type Message = Msg;
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             link,
             value: 0,
@@ -49,6 +49,10 @@ impl Component for LearnComponents {
                 info!("Log from update method: {}", value);
                 false
             }
+            Msg::StructValue(value) => {
+                info!("Log from update method: {:?}", value);
+                false
+            }
             Msg::TextChange(text) => {
                 self.text = text;
                 true
@@ -60,31 +64,51 @@ impl Component for LearnComponents {
         false
     }
     fn view(&self) -> Html {
+        let oninput = self
+            .link
+            .callback(|event: InputData| Msg::CustomValue(event.value));
+        let click: Callback<MouseEvent> = self.link.callback(|_| Msg::Nope);
+
+        let click2: Callback<MouseEvent> = self
+            .link
+            .callback(|_| {
+                Msg::StructValue(Test {
+                    value1: 10,
+                    value2: 100,
+                })
+            })
+            .reform(|value| {
+                info!("{:?}", value);
+                ()
+            });
+
         html! {
-            <div class="learn-component">
-                <h2>{"Creating simple components"}</h2>
-                <div class="card card-custom-width">
-                    <h3>{"Passing Callback as props"}</h3>
+            <div class="main">
+                <h1>{ "Learing yew" }</h1>
+                <a href="https://yew.rs/docs/" target="blank">{"yew.rs"}</a>
+                <a href="https://docs.rs/yew/0.16.2/yew/" target="blank">{"Yew docs"}</a>
+                <Card>
+                    <h2>{"Passing Callback as props"}</h2>
                     <div class="action-wrapper">
                         <Button1 onclick=self.callback_click() value="Click from callback" />
                         <Button2 onclick=self.event_click() value="Click from mouse event callback"/>
                     </div>
-                </div>
-                <div class="card card-custom-width">
+                </Card>
+                <div class="section">
                     <div class="action-wrapper">
                         <div class="small-margin">
-                            <h3>{"Passing Callback directly to dom element"}</h3>
+                            <h2>{"Passing Callback directly to dom element"}</h2>
                             <button class="button" onclick=self.simple_callback()>{ "Click from simple callback" }</button>
                         </div>
                         <div class="small-margin">
-                            <h3>{"Passing Callback as props"}</h3>
+                            <h2>{"Passing Callback as props"}</h2>
                             // this one will dispatch 2 messages: MinusOne & Nope
                             <button class="button" onclick=self.callback_to_reform().reform(|_| Msg::Nope)>{ "Test from reform click"}</button>
                         </div>
                     </div>
                 </div>
-                <div class="card card-custom-width">
-                    <h3>{format!("Passing callback to input, here is result: {}", &self.text)}</h3>
+                <div class="section">
+                    <h2>{format!("Passing callback to input, here is result: {}", &self.text)}</h2>
                     <div class="action-wrapper">
                         <Input oninput=self.oninput() text=&self.text />
                     </div>
@@ -95,7 +119,7 @@ impl Component for LearnComponents {
 }
 
 // Implement methods for callback passed as props
-impl LearnComponents {
+impl App {
     fn callback_click(&self) -> Callback<String> {
         self.link.callback(Msg::CustomValue)
     }
@@ -105,7 +129,7 @@ impl LearnComponents {
 }
 
 // Implemment methods for callback directly in DOM elements
-impl LearnComponents {
+impl App {
     fn callback_to_reform(&self) -> Callback<Msg> {
         self.link.callback(|_| Msg::MinusOne)
     }
@@ -115,7 +139,7 @@ impl LearnComponents {
 }
 
 // Implement methods for input callback
-impl LearnComponents {
+impl App {
     fn oninput(&self) -> Callback<InputData> {
         self.link
             .callback(|event: InputData| Msg::TextChange(event.value))
