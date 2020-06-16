@@ -1,6 +1,4 @@
-use yew::html::Children;
 use yew::prelude::*;
-
 // Card component have to be in props because it have to handle props in the was that will allow
 // passing props from parent to children and reciving proper response in parent when Callback
 // called from children
@@ -33,7 +31,7 @@ impl Component for Card {
 
     fn view(&self) -> Html {
         html! {
-            <div class="card">
+            <div class="real-card">
                 {self.children.render()}
             </div>
         }

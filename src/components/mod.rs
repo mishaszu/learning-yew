@@ -71,6 +71,7 @@ impl Component for LearnComponents {
                     </div>
                 </div>
                 <div class="card card-custom-width">
+                    <h3>{format!("Counter {}", self.value)}</h3>
                     <div class="action-wrapper">
                         <div class="small-margin">
                             <h3>{"Passing Callback directly to dom element"}</h3>

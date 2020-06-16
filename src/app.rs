@@ -1,4 +1,5 @@
 use crate::components::LearnComponents;
+use crate::props::LearnProps;
 use log::*;
 use yew::prelude::*;
 
@@ -27,6 +28,7 @@ impl Component for App {
                 <a href="https://yew.rs/docs/" target="blank">{"yew.rs"}</a>
                 <a href="https://docs.rs/yew/0.16.2/yew/" target="blank">{"Yew docs"}</a>
                 <LearnComponents />
+                <LearnProps />
             </div>
         }
     }
